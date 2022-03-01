@@ -42,4 +42,17 @@ const loadPhoneDetail = phoneId => {
 
 const displayPhoneDetail = phone => {
     console.log(phone);
+    const phoneDetails = document.getElementById('phone-details');
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.innerHTML = `
+        <img src="${phone.image}" class="card-img-top w-75 mx-auto img-fluid" alt="...">
+        <div class="card-body">
+           <h5 class="card-title"><span class="fs-3">Model:</span> ${phone.name}</h5>
+            <p class="card-title"><span class="fw-bold">ChipSet:</span> ${phone.mainFeatures.chipSet}</p>
+            <p class="card-text">Storage: ${phone.mainFeatures.storage}</p>
+            <p class="card-text">DisplaySize: ${phone.mainFeatures.displaySize}</p>
+        </div>
+        ` ;
+    phoneDetails.appendChild(div);
 };

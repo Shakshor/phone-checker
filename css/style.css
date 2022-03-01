@@ -1,3 +1,9 @@
-.card-body{
-    text-align: center;
+#phone-details{
+    width: 600px;
+    margin-bottom: 30px;
 }
+
+#phone-details .card-body{
+    margin-top: 20px;
+    margin-left: 80px;
+} 

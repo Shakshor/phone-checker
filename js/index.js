@@ -23,8 +23,8 @@ const displaySearchResult = phones => {
             <div class="card h-100">
             <img src="${phone.image}" class="card-img-top w-75 mx-auto" alt="...">
             <div class="card-body text-center">
-            <h4 class="${phone.phone_name}">Card title</h4>
-            <h5 class="${phone.brand}">Card title</h5>
+            <h3 class="card-title">${phone.brand}</h3>
+            <h4 class="card-title">${phone.phone_name}</h4>
             <a href="#" onclick="loadPhoneDetail('${phone.slug}')" class="btn btn-primary">Explore</a>
             </div>
         `;
@@ -34,7 +34,7 @@ const displaySearchResult = phones => {
 
 const loadPhoneDetail = phoneId => {
     console.log(phoneId);
-    const url = 'https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089';
+    const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
     fetch(url)
         .then(res => res.json())
         .then(data => displayPhoneDetail(data.data))
@@ -48,11 +48,19 @@ const displayPhoneDetail = phone => {
     div.innerHTML = `
         <img src="${phone.image}" class="card-img-top w-75 mx-auto img-fluid" alt="...">
         <div class="card-body">
-           <h5 class="card-title"><span class="fs-3">Model:</span> ${phone.name}</h5>
+            <h5 class="card-title"><span class="fs-3">Model:</span> ${phone.name}</h5>
+            <p class="card-title"><span class="fw-bold">ReleaseDate:</span> ${phone.releaseDate ? phone.releaseDate : 'no release date found'}</p>
             <p class="card-title"><span class="fw-bold">ChipSet:</span> ${phone.mainFeatures.chipSet}</p>
-            <p class="card-text">Storage: ${phone.mainFeatures.storage}</p>
-            <p class="card-text">DisplaySize: ${phone.mainFeatures.displaySize}</p>
+            <p class="card-text"><span class="fw-bold">Storage:</span> ${phone.mainFeatures.storage}</p>
+            <p class="card-text"><span class="fw-bold">DisplaySize:</span> ${phone.mainFeatures.displaySize}</p>
+            <p class="card-title"><span class="fw-bold">Sensors:</span> ${phone.mainFeatures.sensors}</p>
+            <p class="card-title"><span class="fw-bold">WLAN:</span> ${phone.others ? phone.others.WLAN : 'not'}</p>
+            <p class="card-title"><span class="fw-bold">Bluetooth:</span> ${phone.others ? phone.others.Bluetooth : 'not'}</p>
+            <p class="card-title"><span class="fw-bold">GPS:</span> ${phone.others ? phone.others.GPS : 'not'}</p>
+            <p class="card-title"><span class="fw-bold">NFC:</span> ${phone.others ? phone.others.NFC : 'not'}</p>
+            <p class="card-title"><span class="fw-bold">Radio:</span> ${phone.others ? phone.others.Radio : 'not'}</p>
         </div>
         ` ;
+
     phoneDetails.appendChild(div);
 };

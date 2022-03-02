@@ -22,11 +22,40 @@
 #phone-details .card{
     padding-top: 20px;
     background-color: #BBDEFB;
+    border-radius: 10px;
 }
 #phone-details .card-body{
     margin-top: 20px;
-    margin-left: 80px;
+    margin-left: 40px;
 } 
 .alert{
     display: none;
+}
+
+
+/*------- Media Queries ----------*/
+/*--------- For mobile device ----------*/
+@media only screen and (max-width: 576px){
+    .input-group>.form-control{
+       width: 100%; 
+    }
+    .input-group #button-search{
+        margin-top: 5px;
+        margin-left: 40px;
+        width: 90px;
+        height: 35px;
+        border-radius: 5px;
+    }
+
+    .card{
+        width: 320px;
+    }
+    /*------- Explore Area---------*/
+    #phone-details{
+        width: 355px;
+        padding-left: 18px;
+    }
+    #phone-details .card-body{
+        margin-left: 30px;
+    } 
 }

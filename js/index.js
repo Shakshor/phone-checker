@@ -20,6 +20,8 @@ const searchPhone = () => {
     else {
         // display spinner
         toggleSpinner('block');
+
+        // load data
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
         fetch(url)
             .then(res => res.json())
@@ -28,17 +30,16 @@ const searchPhone = () => {
 
 };
 
-
+// display search result
 const displaySearchResult = phones => {
-    console.log(phones);
+    // console.log(phones);
     const searchResult = document.getElementById('search-result');
+
     // clear the content
     searchResult.textContent = '';
 
     const phoneDetails = document.getElementById('phone-details');
     phoneDetails.textContent = '';
-
-    // document.getElementById('no-result').style.display = 'none';
 
     const valid = phones?.length ? true : false;
     if (valid == false) {
@@ -46,7 +47,7 @@ const displaySearchResult = phones => {
         noResult.style.display = 'block';
     }
     else {
-        phones.forEach(phone => {
+        phones.slice(0, 20).forEach(phone => {
             // console.log(phone);
             const div = document.createElement('div');
             div.classList.add('col');
@@ -66,6 +67,7 @@ const displaySearchResult = phones => {
 
 };
 
+// load single phone details
 const loadPhoneDetail = phoneId => {
     // console.log(phoneId);
     toggleSpinner('block');
@@ -75,9 +77,11 @@ const loadPhoneDetail = phoneId => {
         .then(data => displayPhoneDetail(data.data))
 };
 
+// display single phone detail
 const displayPhoneDetail = phone => {
-    console.log(phone);
+    // console.log(phone);
     const phoneDetails = document.getElementById('phone-details');
+    phoneDetails.textContent = '';
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
@@ -91,9 +95,9 @@ const displayPhoneDetail = phone => {
             <p class="card-title"><span class="fw-bold">Sensors:</span> ${phone.mainFeatures.sensors}</p>
             <p class="card-title"><span class="fw-bold">WLAN:</span> ${phone.others ? phone.others.WLAN : 'not'}</p>
             <p class="card-title"><span class="fw-bold">Bluetooth:</span> ${phone.others ? phone.others.Bluetooth : 'not'}</p>
-            <p class="card-title"><span class="fw-bold">GPS:</span> ${phone.others ? phone.others.GPS : 'not'}</p>
-            <p class="card-title"><span class="fw-bold">NFC:</span> ${phone.others ? phone.others.NFC : 'not'}</p>
-            <p class="card-title"><span class="fw-bold">Radio:</span> ${phone.others ? phone.others.Radio : 'not'}</p>
+            <p class="card-title"><span class="fw-bold">GPS:</span> ${phone.others ? phone.others.GPS : 'not avialable'}</p>
+            <p class="card-title"><span class="fw-bold">NFC:</span> ${phone.others ? phone.others.NFC : 'not avialable'}</p>
+            <p class="card-title"><span class="fw-bold">Radio:</span> ${phone.others ? phone.others.Radio : 'not avialable'}</p>
         </div>
         ` ;
 

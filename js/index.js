@@ -1,3 +1,8 @@
+// Spinner
+const toggleSpinner = displayStyle => {
+    document.getElementById('spinner').style.display = displayStyle;
+}
+
 
 // Search Input
 const searchPhone = () => {
@@ -7,13 +12,14 @@ const searchPhone = () => {
     // clear data
     searchField.value = '';
 
-
     if (searchText == '') {
         //console.log('please put a text');
         const noResult = document.getElementById('no-result');
         noResult.style.display = 'block';
     }
     else {
+        // display spinner
+        toggleSpinner('block');
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
         fetch(url)
             .then(res => res.json())
@@ -23,14 +29,16 @@ const searchPhone = () => {
 };
 
 
-
 const displaySearchResult = phones => {
     console.log(phones);
     const searchResult = document.getElementById('search-result');
     // clear the content
     searchResult.textContent = '';
 
-    document.getElementById('no-result').style.display = 'none';
+    const phoneDetails = document.getElementById('phone-details');
+    phoneDetails.textContent = '';
+
+    // document.getElementById('no-result').style.display = 'none';
 
     const valid = phones?.length ? true : false;
     if (valid == false) {
@@ -53,12 +61,14 @@ const displaySearchResult = phones => {
             `;
             searchResult.appendChild(div);
         });
+        toggleSpinner('none');
     }
 
 };
 
 const loadPhoneDetail = phoneId => {
     // console.log(phoneId);
+    toggleSpinner('block');
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
     fetch(url)
         .then(res => res.json())
@@ -68,8 +78,6 @@ const loadPhoneDetail = phoneId => {
 const displayPhoneDetail = phone => {
     console.log(phone);
     const phoneDetails = document.getElementById('phone-details');
-    // clear the content
-    phoneDetails.textContent = '';
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
@@ -90,4 +98,6 @@ const displayPhoneDetail = phone => {
         ` ;
 
     phoneDetails.appendChild(div);
+
+    toggleSpinner('none');
 };
